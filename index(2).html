@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CAPTAIN | Dijital Oyun Pazarı</title>
+<meta name="theme-color" content="#07111f">
+<style>
+:root{
+  --bg:#07111f;--bg2:#0b1728;--panel:#0f2035;--panel2:#132941;--text:#f6f8fb;
+  --muted:#9fb1c6;--line:rgba(255,255,255,.09);--primary:#12b8ff;--secondary:#ff9b2f;
+  --success:#29d17d;--danger:#ff5b6e;--radius:18px
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#07111f 0,#091524 100%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+button,input,textarea,select{font:inherit}a{color:inherit;text-decoration:none}.container{width:min(1220px,calc(100% - 28px));margin:auto}
+.topbar{background:#050b13;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}
+.topbar .container{display:flex;justify-content:space-between;gap:20px;align-items:center;min-height:34px}.toplinks{display:flex;gap:16px;flex-wrap:wrap}
+header{position:sticky;top:0;z-index:30;background:rgba(7,17,31,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.head{min-height:76px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center}
+.logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:1000;letter-spacing:.08em}.logo-mark{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,var(--primary),#0877ff);display:grid;place-items:center;box-shadow:0 10px 30px rgba(18,184,255,.28);font-size:20px}
+.search{display:flex;background:#0a1829;border:1px solid var(--line);border-radius:14px;overflow:hidden;min-width:0}.search input{flex:1;background:transparent;border:0;color:white;padding:14px 16px;outline:none;min-width:0}.search button{border:0;background:var(--primary);color:#001522;font-weight:900;padding:0 19px}
+.head-actions{display:flex;gap:9px}.btn{border:1px solid var(--line);border-radius:12px;padding:11px 14px;background:#0d1c2e;color:white;font-weight:800;cursor:pointer}.btn.primary{background:var(--primary);color:#001827;border-color:transparent}.btn.orange{background:var(--secondary);color:#211000;border-color:transparent}.btn.success{background:var(--success);color:#002414;border-color:transparent}.btn.danger{background:var(--danger);border-color:transparent}.btn.ghost{background:transparent}
+nav{border-top:1px solid var(--line)}.navrow{display:flex;align-items:center;gap:6px;overflow:auto;padding:8px 0;scrollbar-width:none}.navrow::-webkit-scrollbar{display:none}.navitem{white-space:nowrap;padding:10px 12px;border-radius:10px;color:#cbd6e2;font-weight:800;font-size:13px;cursor:pointer}.navitem:hover,.navitem.active{background:#10243a;color:white}.navitem.hot{color:#ffc06d}
+.hero{padding:24px 0}.hero-grid{display:grid;grid-template-columns:1.6fr .8fr;gap:16px}
+.hero-main{min-height:330px;border:1px solid var(--line);border-radius:24px;overflow:hidden;padding:34px;background:
+radial-gradient(700px 380px at 85% 30%,rgba(18,184,255,.3),transparent 55%),
+radial-gradient(480px 300px at 15% 100%,rgba(255,155,47,.16),transparent 50%),
+linear-gradient(135deg,#0e2239,#07111f);position:relative}
+.badge{display:inline-flex;align-items:center;gap:7px;background:rgba(18,184,255,.12);border:1px solid rgba(18,184,255,.3);color:#78d9ff;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900}
+.hero h1{font-size:clamp(38px,6vw,68px);line-height:.96;letter-spacing:-.05em;margin:18px 0 14px;max-width:760px}.hero p{max-width:680px;color:#aec0d3;font-size:17px;line-height:1.65}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.hero-art{position:absolute;right:-30px;bottom:-45px;width:320px;height:320px;border-radius:50%;background:conic-gradient(from 210deg,var(--primary),transparent,var(--secondary),transparent,var(--primary));filter:blur(2px);opacity:.34}
+.side-stack{display:grid;gap:16px}.mini-banner{border:1px solid var(--line);border-radius:20px;padding:24px;background:linear-gradient(145deg,#122a44,#0b1728);min-height:157px;position:relative;overflow:hidden}.mini-banner:nth-child(2){background:linear-gradient(145deg,#2b1d11,#14191f)}.mini-banner h3{margin:10px 0 6px;font-size:24px}.mini-banner p{font-size:13px;margin:0;color:#aebbc9}.mini-orb{position:absolute;width:120px;height:120px;border-radius:50%;right:-25px;bottom:-40px;background:var(--primary);filter:blur(16px);opacity:.25}.mini-banner:nth-child(2) .mini-orb{background:var(--secondary)}
+.section{padding:16px 0 34px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:10px 0 16px}.section-head h2{font-size:26px;margin:0}.section-head p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.category-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.category{background:linear-gradient(180deg,#10233a,#0a1728);border:1px solid var(--line);border-radius:16px;padding:18px 14px;text-align:center;cursor:pointer;transition:.2s}.category:hover{transform:translateY(-3px);border-color:rgba(18,184,255,.4)}.cat-icon{width:50px;height:50px;border-radius:14px;margin:0 auto 10px;display:grid;place-items:center;font-size:25px;background:#07111f}.category b{display:block;font-size:13px}.category small{color:var(--muted)}
+.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:14px}.tab{padding:9px 13px;border-radius:10px;border:1px solid var(--line);background:#0b1a2b;color:#c9d5e2;white-space:nowrap;cursor:pointer;font-weight:800}.tab.active{background:var(--primary);color:#00131d;border-color:transparent}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.product{border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,#0f2137,#0a1727);overflow:hidden;display:flex;flex-direction:column}.thumb{height:145px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 70% 30%,rgba(18,184,255,.25),transparent 45%),#091525;font-size:46px;position:relative}.sale{position:absolute;left:10px;top:10px;background:var(--danger);padding:5px 8px;border-radius:8px;font-weight:900;font-size:11px}.product-body{padding:14px}.merchant{font-size:11px;color:#74d6ff;font-weight:900}.product h3{font-size:15px;line-height:1.35;margin:6px 0 10px;min-height:40px}.price-row{display:flex;align-items:end;justify-content:space-between;gap:8px}.old{font-size:11px;color:#71869c;text-decoration:line-through}.price{font-size:20px;font-weight:1000}.stock{font-size:11px;color:var(--success);font-weight:800}.product-actions{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:12px}.product-actions .btn{padding:9px 10px}
+.market{display:grid;grid-template-columns:1.05fr .95fr;gap:14px}.market-card,.info-card{border:1px solid var(--line);border-radius:18px;background:#0b1a2c;padding:18px}.listing{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.listing:last-child{border:0}.avatar{width:42px;height:42px;border-radius:12px;background:#142c47;display:grid;place-items:center}.listing h4{margin:0 0 3px;font-size:13px}.listing small{color:var(--muted)}.listing strong{font-size:15px}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:18px 0 42px}.feature{border:1px solid var(--line);border-radius:16px;padding:18px;background:#0a1828}.feature span{font-size:24px}.feature h4{margin:9px 0 6px}.feature p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}
+footer{border-top:1px solid var(--line);background:#050c15;padding:34px 0 24px}.footer-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:28px}.footer-grid h4{margin:0 0 12px}.footer-grid a{display:block;color:#94a8bc;margin:8px 0;font-size:13px}.foot-note{border-top:1px solid var(--line);margin-top:28px;padding-top:18px;color:#6f849a;font-size:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:100;display:none;align-items:center;justify-content:center;padding:16px}.modal.show{display:flex}.modal-card{width:min(960px,100%);max-height:90vh;overflow:auto;background:#081523;border:1px solid var(--line);border-radius:22px;box-shadow:0 30px 100px #000;padding:20px}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:14px;position:sticky;top:-20px;background:#081523;padding:10px 0 14px;z-index:3}.modal-head h2{margin:0}.close{width:38px;height:38px;border-radius:10px;background:#13263b;border:1px solid var(--line);color:white;cursor:pointer}
+.admin-tabs{display:flex;gap:8px;overflow:auto;margin-bottom:16px}.admin-tab{padding:10px 12px;border:1px solid var(--line);background:#0d1c2e;color:white;border-radius:10px;white-space:nowrap;cursor:pointer}.admin-tab.active{background:var(--primary);color:#00131d}.admin-pane{display:none}.admin-pane.active{display:block}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:#9db0c4;font-weight:800}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);background:#0b1c2f;color:white;border-radius:10px;padding:11px;outline:none}.field textarea{min-height:110px;resize:vertical}
+.admin-list{display:grid;gap:10px}.admin-item{border:1px solid var(--line);border-radius:14px;padding:13px;background:#0b1a2b;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.admin-item small{color:var(--muted)}.mini-actions{display:flex;gap:6px}.mini-actions button{padding:7px 9px;border:0;border-radius:8px;cursor:pointer}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;background:#08141f;border:1px solid var(--line);padding:12px 16px;border-radius:12px;z-index:200;transition:.25s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.cart-drawer{position:fixed;right:-420px;top:0;bottom:0;width:min(390px,94vw);background:#081523;border-left:1px solid var(--line);z-index:90;transition:.28s;padding:18px;overflow:auto}.cart-drawer.show{right:0}.cart-row{display:grid;grid-template-columns:1fr auto;gap:10px;border-bottom:1px solid var(--line);padding:12px 0}.cart-total{font-size:22px;font-weight:1000;margin:18px 0}
+.mobile-only{display:none}
+@media(max-width:1000px){.category-grid{grid-template-columns:repeat(3,1fr)}.product-grid{grid-template-columns:repeat(3,1fr)}.hero-grid,.market{grid-template-columns:1fr}.side-stack{grid-template-columns:1fr 1fr}.footer-grid{grid-template-columns:1fr 1fr}.features{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.topbar{display:none}.head{grid-template-columns:auto 1fr auto;min-height:66px}.search{grid-column:1/-1;grid-row:2;margin-bottom:10px}.head-actions .hide-mobile{display:none}.mobile-only{display:inline-flex}.hero{padding-top:14px}.hero-main{padding:24px;min-height:390px}.hero-art{width:220px;height:220px}.side-stack{grid-template-columns:1fr}.category-grid{grid-template-columns:repeat(2,1fr)}.product-grid{grid-template-columns:repeat(2,1fr)}.features{grid-template-columns:1fr 1fr}.footer-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+@media(max-width:480px){.container{width:min(100% - 20px,1220px)}.product-grid{grid-template-columns:1fr 1fr;gap:9px}.product h3{font-size:13px}.price{font-size:16px}.thumb{height:115px}.category{padding:14px 10px}.features{grid-template-columns:1fr}.hero h1{font-size:43px}.hero p{font-size:15px}.section-head h2{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="container"><div id="topNote">Türkiye'nin Dijital Oyuncu Pazarı</div><div class="toplinks"><a href="#">Mağaza Paketleri</a><a href="#">Blog</a><a href="#">Yardım & Destek</a><a href="#" onclick="openAdmin();return false">Yönetim Paneli</a></div></div>
+</div>
+
+<header>
+  <div class="container head">
+    <a class="logo" href="#"><span class="logo-mark">⚓</span><span id="siteNameHeader">CAPTAIN</span></a>
+    <div class="search"><input id="searchInput" placeholder="Oyun, ürün veya kategori ara..."><button onclick="runSearch()">Ara</button></div>
+    <div class="head-actions">
+      <button class="btn hide-mobile" onclick="toast('Giriş/Kayıt demo ekranı')">Giriş / Kayıt</button>
+      <button class="btn orange hide-mobile" onclick="toast('Satış ilanı oluşturma demo ekranı')">Satış Yap</button>
+      <button class="btn" onclick="toggleCart()">🛒 <span id="cartCount">0</span></button>
+      <button class="btn mobile-only" onclick="openAdmin()">⚙️</button>
+    </div>
+  </div>
+  <nav><div class="container navrow" id="navRow"></div></nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-main">
+      <div class="badge" id="heroBadge">⚓ CAPTAIN MARKET</div>
+      <h1 id="heroTitle">Oyun dünyasının tüm dijital ürünleri tek limanda.</h1>
+      <p id="heroText">E-pin, oyun içi para, hesap ilanları, hediye kartları ve oyuncu pazarı. CAPTAIN ile hızlı, düzenli ve kolay alışveriş deneyimi.</p>
+      <div class="hero-actions">
+        <button class="btn primary" onclick="document.getElementById('products').scrollIntoView()">Ürünleri Keşfet</button>
+        <button class="btn orange" onclick="toast('Satış Yap özelliği demo olarak hazır')">Satış Yap</button>
+        <button class="btn ghost" onclick="openAdmin()">✏️ Siteyi Düzenle</button>
+      </div>
+      <div class="hero-art"></div>
+    </div>
+    <div class="side-stack">
+      <div class="mini-banner"><span class="badge">YENİ</span><h3 id="banner1Title">Valorant VP</h3><p id="banner1Text">Popüler paketlerde özel fiyatlar.</p><div class="mini-orb"></div></div>
+      <div class="mini-banner"><span class="badge" style="color:#ffc06d;border-color:rgba(255,155,47,.35);background:rgba(255,155,47,.1)">KAMPANYA</span><h3 id="banner2Title">Oyuncu Pazarı</h3><p id="banner2Text">İlanını oluştur, dijital ürününü satışa çıkar.</p><div class="mini-orb"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head"><div><h2>Popüler Kategoriler</h2><p>İstediğin kategoriyi yönetim panelinden ekleyip silebilirsin.</p></div><button class="btn" onclick="openAdmin('categories')">Kategorileri Düzenle</button></div>
+    <div class="category-grid" id="categoryGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="products">
+  <div class="container">
+    <div class="section-head"><div><h2>Öne Çıkan Ürünler</h2><p>Fiyat, ürün adı, satıcı, indirim ve stok bilgileri tamamen manuel düzenlenebilir.</p></div><button class="btn" onclick="openAdmin('products')">Ürün Ekle</button></div>
+    <div class="tabs" id="productTabs"></div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head"><div><h2>Oyuncu Pazarı</h2><p>Kullanıcı ilanları için örnek alan.</p></div><button class="btn orange" onclick="toast('Yeni ilan oluşturma ekranı demo')">+ İlan Ver</button></div>
+    <div class="market">
+      <div class="market-card"><div id="listingArea"></div></div>
+      <div class="info-card">
+        <div class="badge">CAPTAIN GÜVENCE</div>
+        <h2>İşlem akışını sen belirle.</h2>
+        <p style="color:var(--muted);line-height:1.7">Bu demo sürümünde satış akışı, ilanlar, ürünler ve metinler manuel yönetilebilir. Gerçek ödeme, üyelik, bakiye ve otomatik teslimat için sunucu tarafı sistem kurulması gerekir.</p>
+        <button class="btn primary" onclick="openAdmin()">Yönetim Panelini Aç</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container features">
+  <div class="feature"><span>⚡</span><h4>Hızlı Teslimat</h4><p id="feature1">Dijital ürünleri hızlı teslim mantığıyla sergileyin.</p></div>
+  <div class="feature"><span>🔒</span><h4>Güvenli Alışveriş</h4><p id="feature2">Ödeme altyapısı bağlandığında güvenli işlem akışı eklenebilir.</p></div>
+  <div class="feature"><span>💸</span><h4>Esnek Fiyat</h4><p id="feature3">Tüm fiyatları panelden elle güncelleyin.</p></div>
+  <div class="feature"><span>🎧</span><h4>Destek</h4><p id="feature4">WhatsApp, canlı destek veya ticket bağlantıları eklenebilir.</p></div>
+</section>
+
+<section id="nativeAdmin" style="padding:34px 0 90px">
+  <div class="container">
+    <details open style="border:1px solid var(--line);border-radius:22px;background:#081523;padding:18px">
+      <summary style="cursor:pointer;font-size:22px;font-weight:900;padding:8px 0">
+        ⚙️ CAPTAIN Yönetim Paneli
+      </summary>
+      <p style="color:var(--muted);line-height:1.6">
+        Bu panel iPhone önizlemesinde de açılır. Aşağıdaki düğme tam düzenleme panelini açar.
+      </p>
+      <button id="nativeOpenAdmin" type="button" class="btn primary" style="width:100%;padding:15px">
+        Tam Düzenleme Panelini Aç
+      </button>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:14px">
+        <button id="nativeProducts" type="button" class="btn">Ürünler</button>
+        <button id="nativeCategories" type="button" class="btn">Kategoriler</button>
+        <button id="nativeMenus" type="button" class="btn">Sekmeler</button>
+        <button id="nativeListings" type="button" class="btn">İlanlar</button>
+      </div>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div><div class="logo"><span class="logo-mark">⚓</span><span id="siteNameFooter">CAPTAIN</span></div><p id="footerText" style="color:var(--muted);line-height:1.7;max-width:420px">Dijital oyun ürünleri ve oyuncu pazarı için özgün CAPTAIN demo arayüzü.</p></div>
+      <div><h4>CAPTAIN</h4><a>Hakkımızda</a><a>Kurumsal</a><a>Blog</a><a>İletişim</a></div>
+      <div><h4>Kullanıcı</h4><a>Üye Ol</a><a>Mağaza</a><a>Satış Yap</a><a>Yardım Merkezi</a></div>
+      <div><h4>Ödeme</h4><a>Kredi Kartı</a><a>Havale / EFT</a><a>Bakiye</a><a>İade Koşulları</a></div>
+    </div>
+    <div class="foot-note"><span>© 2026 CAPTAIN Demo. Tüm içerikler manuel düzenlenebilir.</span><span>Yönetim paneli: ⚙️ / Yönetim Paneli</span></div>
+  </div>
+</footer>
+
+<div class="cart-drawer" id="cartDrawer">
+  <div style="display:flex;justify-content:space-between;align-items:center"><h2>Sepet</h2><button class="close" onclick="toggleCart()">✕</button></div>
+  <div id="cartItems"></div><div class="cart-total" id="cartTotal">Toplam: 0 TL</div>
+  <button class="btn primary" style="width:100%" onclick="toast('Ödeme demo aşamasında. Gerçek ödeme altyapısı ayrıca bağlanır.')">Ödemeye Geç</button>
+</div>
+
+<div class="modal" id="adminModal">
+  <div class="modal-card">
+    <div class="modal-head"><div><h2>⚙️ CAPTAIN Yönetim Paneli</h2><div style="color:var(--muted);font-size:12px">Tüm değişiklikler bu cihazın tarayıcısında kaydedilir.</div></div><button class="close" onclick="closeAdmin()">✕</button></div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-pane="general" onclick="switchAdmin('general')">Genel</button>
+      <button class="admin-tab" data-pane="menus" onclick="switchAdmin('menus')">Sekmeler</button>
+      <button class="admin-tab" data-pane="categories" onclick="switchAdmin('categories')">Kategoriler</button>
+      <button class="admin-tab" data-pane="products" onclick="switchAdmin('products')">Ürünler</button>
+      <button class="admin-tab" data-pane="listings" onclick="switchAdmin('listings')">İlanlar</button>
+      <button class="admin-tab" data-pane="backup" onclick="switchAdmin('backup')">Yedek</button>
+    </div>
+
+    <div class="admin-pane active" id="pane-general">
+      <div class="form-grid">
+        <div class="field"><label>Site adı</label><input id="admSiteName"></div>
+        <div class="field"><label>Üst bilgi</label><input id="admTopNote"></div>
+        <div class="field full"><label>Ana başlık</label><input id="admHeroTitle"></div>
+        <div class="field full"><label>Ana açıklama</label><textarea id="admHeroText"></textarea></div>
+        <div class="field"><label>1. banner başlığı</label><input id="admB1Title"></div>
+        <div class="field"><label>1. banner metni</label><input id="admB1Text"></div>
+        <div class="field"><label>2. banner başlığı</label><input id="admB2Title"></div>
+        <div class="field"><label>2. banner metni</label><input id="admB2Text"></div>
+        <div class="field"><label>Ana renk</label><input id="admPrimary" type="color"></div>
+        <div class="field"><label>İkinci renk</label><input id="admSecondary" type="color"></div>
+        <div class="field full"><label>Footer metni</label><textarea id="admFooterText"></textarea></div>
+      </div>
+      <button class="btn success" style="margin-top:14px" onclick="saveGeneral()">Değişiklikleri Kaydet</button>
+    </div>
+
+    <div class="admin-pane" id="pane-menus">
+      <div class="field full"><label>Sekmeler / menüler (her satıra bir tane)</label><textarea id="admMenus" style="min-height:230px"></textarea></div>
+      <button class="btn success" style="margin-top:12px" onclick="saveMenus()">Sekmeleri Kaydet</button>
+    </div>
+
+    <div class="admin-pane" id="pane-categories">
+      <div class="form-grid">
+        <div class="field"><label>Kategori adı</label><input id="catName" placeholder="Örn: Fortnite"></div>
+        <div class="field"><label>İkon / emoji</label><input id="catIcon" placeholder="🎮"></div>
+        <div class="field"><label>Alt metin</label><input id="catSub" placeholder="E-pin & hesap"></div>
+        <div class="field" style="align-self:end"><button class="btn primary" onclick="addCategory()">Kategori Ekle</button></div>
+      </div>
+      <div class="admin-list" id="adminCategoryList" style="margin-top:16px"></div>
+    </div>
+
+    <div class="admin-pane" id="pane-products">
+      <div class="form-grid">
+        <div class="field"><label>Ürün adı</label><input id="prodName"></div>
+        <div class="field"><label>Kategori</label><input id="prodCat"></div>
+        <div class="field"><label>Satıcı</label><input id="prodSeller"></div>
+        <div class="field"><label>İkon / emoji</label><input id="prodIcon" placeholder="🎯"></div>
+        <div class="field"><label>Fiyat (TL)</label><input id="prodPrice" type="number" step="0.01"></div>
+        <div class="field"><label>Eski fiyat (opsiyonel)</label><input id="prodOld" type="number" step="0.01"></div>
+        <div class="field"><label>Stok yazısı</label><input id="prodStock" value="Stokta"></div>
+        <div class="field"><label>İndirim etiketi</label><input id="prodSale" placeholder="%10"></div>
+      </div>
+      <button class="btn primary" style="margin-top:12px" onclick="addProduct()">Ürün Ekle</button>
+      <div class="admin-list" id="adminProductList" style="margin-top:16px"></div>
+    </div>
+
+    <div class="admin-pane" id="pane-listings">
+      <div class="form-grid">
+        <div class="field"><label>İlan başlığı</label><input id="listName"></div>
+        <div class="field"><label>Satıcı</label><input id="listSeller"></div>
+        <div class="field"><label>Fiyat (TL)</label><input id="listPrice" type="number"></div>
+        <div class="field"><label>İkon</label><input id="listIcon" placeholder="🛡️"></div>
+      </div>
+      <button class="btn primary" style="margin-top:12px" onclick="addListing()">İlan Ekle</button>
+      <div class="admin-list" id="adminListingList" style="margin-top:16px"></div>
+    </div>
+
+    <div class="admin-pane" id="pane-backup">
+      <p style="color:var(--muted)">Tüm site verisini JSON olarak dışa aktarabilir veya başka cihazda içe aktarabilirsin.</p>
+      <div class="field"><label>Site verisi</label><textarea id="backupArea" style="min-height:320px"></textarea></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn primary" onclick="exportData()">JSON Oluştur</button><button class="btn success" onclick="importData()">JSON'u İçe Aktar</button><button class="btn danger" onclick="resetData()">Varsayılana Dön</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DEFAULT_DATA={
+ general:{siteName:"CAPTAIN",topNote:"Türkiye'nin Dijital Oyuncu Pazarı",heroTitle:"Oyun dünyasının tüm dijital ürünleri tek limanda.",heroText:"E-pin, oyun içi para, hesap ilanları, hediye kartları ve oyuncu pazarı. CAPTAIN ile hızlı, düzenli ve kolay alışveriş deneyimi.",b1Title:"Valorant VP",b1Text:"Popüler paketlerde özel fiyatlar.",b2Title:"Oyuncu Pazarı",b2Text:"İlanını oluştur, dijital ürününü satışa çıkar.",primary:"#12b8ff",secondary:"#ff9b2f",footerText:"Dijital oyun ürünleri ve oyuncu pazarı için özgün CAPTAIN demo arayüzü."},
+ menus:["OYUNLAR","OYUNCU PAZARI","E-PİN","VALORANT VP","PUBG UC","MOBILE LEGENDS","CS2 SKIN","HEDİYE KARTLARI","KAMPANYALAR","＋ BAKİYE YÜKLE"],
+ categories:[
+  {name:"Valorant",icon:"🎯",sub:"VP & hesap"},{name:"PUBG Mobile",icon:"🪖",sub:"UC & hesap"},{name:"Mobile Legends",icon:"💎",sub:"Elmas"},{name:"CS2",icon:"🔫",sub:"Skin & hesap"},{name:"Steam",icon:"🎮",sub:"Oyun & bakiye"},{name:"Roblox",icon:"🧱",sub:"Robux"}
+ ],
+ products:[
+  {name:"Valorant 1000 VP",cat:"Valorant",seller:"CAPTAIN Store",icon:"🎯",price:349.90,old:379.90,stock:"Anında Teslim",sale:"%8"},
+  {name:"PUBG Mobile 660 UC",cat:"PUBG Mobile",seller:"UC Market",icon:"🪖",price:439.00,old:475.00,stock:"Stokta",sale:"%7"},
+  {name:"Mobile Legends 565 Elmas",cat:"Mobile Legends",seller:"Diamond Port",icon:"💎",price:389.00,old:419.00,stock:"Hızlı Teslim",sale:""},
+  {name:"Steam 500 TL Bakiye",cat:"Steam",seller:"CAPTAIN Store",icon:"🎮",price:495.00,old:500.00,stock:"Kod Teslim",sale:"%1"},
+  {name:"CS2 Prime Hesap",cat:"CS2",seller:"SkinDock",icon:"🔫",price:799.00,old:0,stock:"3 adet",sale:""},
+  {name:"Roblox 1000 Robux",cat:"Roblox",seller:"Block Shop",icon:"🧱",price:469.90,old:509.90,stock:"ID Yükleme",sale:"%8"},
+  {name:"PlayStation 1000 TL Gift Card",cat:"Hediye Kartları",seller:"GameCards",icon:"🎁",price:995.00,old:1000.00,stock:"Kod Teslim",sale:""},
+  {name:"Xbox Game Pass Ultimate",cat:"E-Pin",seller:"CAPTAIN Store",icon:"🟢",price:249.00,old:299.00,stock:"Anında",sale:"%17"}
+ ],
+ listings:[
+  {name:"Valorant Full Access Hesap",seller:"CaptainSeller",price:1450,icon:"🎯"},
+  {name:"PUBG Mobile Efsane Hesap",seller:"NavyMarket",price:6900,icon:"🪖"},
+  {name:"CS2 Skin Paketi",seller:"TradeDock",price:2200,icon:"🔫"},
+  {name:"Steam Oyun Arşivi",seller:"PortGames",price:899,icon:"🎮"}
+ ]
+};
+function storageGet(){
+  try { return localStorage.getItem("captainData"); }
+  catch(e) { return null; }
+}
+function storageSet(value){
+  try { localStorage.setItem("captainData", value); return true; }
+  catch(e) { return false; }
+}
+let data;
+try {
+  const saved = storageGet();
+  data = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_DATA));
+} catch(e) {
+  data = JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+let cart=[];let activeCat="Tümü";
+const $=id=>document.getElementById(id);
+
+const catName=$("catName"),catIcon=$("catIcon"),catSub=$("catSub"),
+prodName=$("prodName"),prodCat=$("prodCat"),prodSeller=$("prodSeller"),prodIcon=$("prodIcon"),
+prodPrice=$("prodPrice"),prodOld=$("prodOld"),prodStock=$("prodStock"),prodSale=$("prodSale"),
+listName=$("listName"),listSeller=$("listSeller"),listPrice=$("listPrice"),listIcon=$("listIcon");
+
+const siteNameHeader=$("siteNameHeader"),siteNameFooter=$("siteNameFooter"),topNote=$("topNote"),
+heroTitle=$("heroTitle"),heroText=$("heroText"),banner1Title=$("banner1Title"),banner1Text=$("banner1Text"),
+banner2Title=$("banner2Title"),banner2Text=$("banner2Text"),footerText=$("footerText"),navRow=$("navRow"),
+categoryGrid=$("categoryGrid"),productTabs=$("productTabs"),productGrid=$("productGrid"),listingArea=$("listingArea"),
+searchInput=$("searchInput"),cartCount=$("cartCount"),cartItems=$("cartItems"),cartTotal=$("cartTotal"),
+cartDrawer=$("cartDrawer"),adminModal=$("adminModal"),admSiteName=$("admSiteName"),admTopNote=$("admTopNote"),
+admHeroTitle=$("admHeroTitle"),admHeroText=$("admHeroText"),admB1Title=$("admB1Title"),admB1Text=$("admB1Text"),
+admB2Title=$("admB2Title"),admB2Text=$("admB2Text"),admPrimary=$("admPrimary"),admSecondary=$("admSecondary"),
+admFooterText=$("admFooterText"),admMenus=$("admMenus"),adminCategoryList=$("adminCategoryList"),
+adminProductList=$("adminProductList"),adminListingList=$("adminListingList"),backupArea=$("backupArea");
+
+const fmt=n=>new Intl.NumberFormat("tr-TR",{style:"currency",currency:"TRY"}).format(Number(n)||0);
+function save(){storageSet(JSON.stringify(data))}
+function render(){
+ document.documentElement.style.setProperty("--primary",data.general.primary);
+ document.documentElement.style.setProperty("--secondary",data.general.secondary);
+ siteNameHeader.textContent=data.general.siteName;siteNameFooter.textContent=data.general.siteName;topNote.textContent=data.general.topNote;
+ heroTitle.textContent=data.general.heroTitle;heroText.textContent=data.general.heroText;banner1Title.textContent=data.general.b1Title;banner1Text.textContent=data.general.b1Text;banner2Title.textContent=data.general.b2Title;banner2Text.textContent=data.general.b2Text;footerText.textContent=data.general.footerText;document.title=data.general.siteName+" | Dijital Oyun Pazarı";
+ navRow.innerHTML=data.menus.map((m,i)=>`<div class="navitem ${i===0?'active':''} ${m.includes('KAMPANYA')?'hot':''}" onclick="toast('${esc(m)} sekmesi demo')">${esc(m)}</div>`).join("");
+ categoryGrid.innerHTML=data.categories.map((c,i)=>`<div class="category" onclick="filterCategory('${js(c.name)}')"><div class="cat-icon">${esc(c.icon)}</div><b>${esc(c.name)}</b><small>${esc(c.sub||"")}</small></div>`).join("");
+ const cats=["Tümü",...new Set(data.products.map(p=>p.cat))];
+ productTabs.innerHTML=cats.map(c=>`<button class="tab ${c===activeCat?'active':''}" onclick="filterCategory('${js(c)}')">${esc(c)}</button>`).join("");
+ renderProducts();renderListings();renderAdminLists();fillGeneral();admMenus.value=data.menus.join("\n");
+}
+function renderProducts(){
+ let q=(searchInput.value||"").toLowerCase().trim();
+ let arr=data.products.filter(p=>(activeCat==="Tümü"||p.cat===activeCat)&&(!q||[p.name,p.cat,p.seller].join(" ").toLowerCase().includes(q)));
+ productGrid.innerHTML=arr.length?arr.map((p)=>{let idx=data.products.indexOf(p);return `<article class="product"><div class="thumb">${p.sale?`<span class="sale">${esc(p.sale)}</span>`:""}<span>${esc(p.icon||"🎮")}</span></div><div class="product-body"><div class="merchant">${esc(p.seller)}</div><h3>${esc(p.name)}</h3><div class="price-row"><div>${p.old?`<div class="old">${fmt(p.old)}</div>`:""}<div class="price">${fmt(p.price)}</div></div><div class="stock">${esc(p.stock||"Stokta")}</div></div><div class="product-actions"><button class="btn primary" onclick="addCart(${idx})">Sepete Ekle</button><button class="btn" onclick="toast('Ürün detayı demo')">›</button></div></div></article>`}).join(""):`<div style="grid-column:1/-1;color:var(--muted);padding:30px;text-align:center">Sonuç bulunamadı.</div>`;
+}
+function renderListings(){listingArea.innerHTML=data.listings.map(l=>`<div class="listing"><div class="avatar">${esc(l.icon||"🎮")}</div><div><h4>${esc(l.name)}</h4><small>${esc(l.seller)}</small></div><strong>${fmt(l.price)}</strong></div>`).join("")}
+function filterCategory(c){activeCat=c;render()}
+function runSearch(){activeCat="Tümü";render()}
+function addCart(i){cart.push(data.products[i]);renderCart();toast("Ürün sepete eklendi")}
+function renderCart(){cartCount.textContent=cart.length;cartItems.innerHTML=cart.length?cart.map((p,i)=>`<div class="cart-row"><div><b>${esc(p.name)}</b><div style="color:var(--muted);font-size:12px">${fmt(p.price)}</div></div><button class="btn danger" onclick="cart.splice(${i},1);renderCart()">Sil</button></div>`).join(""):`<p style="color:var(--muted)">Sepet boş.</p>`;cartTotal.textContent="Toplam: "+fmt(cart.reduce((a,b)=>a+Number(b.price),0))}
+function toggleCart(){cartDrawer.classList.toggle("show");renderCart()}
+function openAdmin(pane="general"){adminModal.classList.add("show");switchAdmin(pane);renderAdminLists();fillGeneral()}
+function closeAdmin(){adminModal.classList.remove("show")}
+function switchAdmin(p){document.querySelectorAll(".admin-tab").forEach(x=>x.classList.toggle("active",x.dataset.pane===p));document.querySelectorAll(".admin-pane").forEach(x=>x.classList.toggle("active",x.id==="pane-"+p))}
+function fillGeneral(){admSiteName.value=data.general.siteName;admTopNote.value=data.general.topNote;admHeroTitle.value=data.general.heroTitle;admHeroText.value=data.general.heroText;admB1Title.value=data.general.b1Title;admB1Text.value=data.general.b1Text;admB2Title.value=data.general.b2Title;admB2Text.value=data.general.b2Text;admPrimary.value=data.general.primary;admSecondary.value=data.general.secondary;admFooterText.value=data.general.footerText}
+function saveGeneral(){data.general={siteName:admSiteName.value,topNote:admTopNote.value,heroTitle:admHeroTitle.value,heroText:admHeroText.value,b1Title:admB1Title.value,b1Text:admB1Text.value,b2Title:admB2Title.value,b2Text:admB2Text.value,primary:admPrimary.value,secondary:admSecondary.value,footerText:admFooterText.value};save();render();toast("Genel ayarlar kaydedildi")}
+function saveMenus(){data.menus=admMenus.value.split("\n").map(x=>x.trim()).filter(Boolean);save();render();toast("Sekmeler kaydedildi")}
+function addCategory(){if(!catName.value.trim())return toast("Kategori adı yaz");data.categories.push({name:catName.value.trim(),icon:catIcon.value||"🎮",sub:catSub.value});catName.value=catIcon.value=catSub.value="";save();render()}
+function addProduct(){if(!prodName.value.trim())return toast("Ürün adı yaz");data.products.push({name:prodName.value,cat:prodCat.value||"Diğer",seller:prodSeller.value||data.general.siteName+" Store",icon:prodIcon.value||"🎮",price:Number(prodPrice.value)||0,old:Number(prodOld.value)||0,stock:prodStock.value||"Stokta",sale:prodSale.value});["prodName","prodCat","prodSeller","prodIcon","prodPrice","prodOld","prodSale"].forEach(id=>document.getElementById(id).value="");save();render()}
+function addListing(){if(!listName.value.trim())return toast("İlan adı yaz");data.listings.push({name:listName.value,seller:listSeller.value||"Satıcı",price:Number(listPrice.value)||0,icon:listIcon.value||"🎮"});["listName","listSeller","listPrice","listIcon"].forEach(id=>document.getElementById(id).value="");save();render()}
+function renderAdminLists(){
+ adminCategoryList.innerHTML=data.categories.map((c,i)=>`<div class="admin-item"><div><b>${esc(c.icon)} ${esc(c.name)}</b><br><small>${esc(c.sub||"")}</small></div><div class="mini-actions"><button onclick="editCategory(${i})">✏️</button><button onclick="delCategory(${i})">🗑️</button></div></div>`).join("");
+ adminProductList.innerHTML=data.products.map((p,i)=>`<div class="admin-item"><div><b>${esc(p.icon)} ${esc(p.name)}</b><br><small>${esc(p.cat)} • ${fmt(p.price)} • ${esc(p.seller)}</small></div><div class="mini-actions"><button onclick="editProduct(${i})">✏️</button><button onclick="delProduct(${i})">🗑️</button></div></div>`).join("");
+ adminListingList.innerHTML=data.listings.map((l,i)=>`<div class="admin-item"><div><b>${esc(l.name)}</b><br><small>${esc(l.seller)} • ${fmt(l.price)}</small></div><div class="mini-actions"><button onclick="editListing(${i})">✏️</button><button onclick="delListing(${i})">🗑️</button></div></div>`).join("")
+}
+function editCategory(i){let c=data.categories[i],n=prompt("Kategori adı",c.name);if(n===null)return;c.name=n;c.icon=prompt("İkon",c.icon)||c.icon;c.sub=prompt("Alt metin",c.sub)||"";save();render()}
+function editProduct(i){let p=data.products[i],n=prompt("Ürün adı",p.name);if(n===null)return;p.name=n;p.cat=prompt("Kategori",p.cat)||p.cat;p.seller=prompt("Satıcı",p.seller)||p.seller;p.price=Number(prompt("Fiyat",p.price))||p.price;p.old=Number(prompt("Eski fiyat",p.old))||0;p.stock=prompt("Stok yazısı",p.stock)||p.stock;p.sale=prompt("İndirim etiketi",p.sale)||"";p.icon=prompt("İkon",p.icon)||p.icon;save();render()}
+function editListing(i){let l=data.listings[i],n=prompt("İlan adı",l.name);if(n===null)return;l.name=n;l.seller=prompt("Satıcı",l.seller)||l.seller;l.price=Number(prompt("Fiyat",l.price))||l.price;l.icon=prompt("İkon",l.icon)||l.icon;save();render()}
+function delCategory(i){if(confirm("Kategori silinsin mi?")){data.categories.splice(i,1);save();render()}}
+function delProduct(i){if(confirm("Ürün silinsin mi?")){data.products.splice(i,1);save();render()}}
+function delListing(i){if(confirm("İlan silinsin mi?")){data.listings.splice(i,1);save();render()}}
+function exportData(){backupArea.value=JSON.stringify(data,null,2);backupArea.select();toast("JSON hazır")}
+function importData(){try{let x=JSON.parse(backupArea.value);data=x;save();render();toast("Veri içe aktarıldı")}catch(e){toast("JSON geçersiz")}}
+function resetData(){if(confirm("Tüm manuel değişiklikler silinsin mi?")){data=JSON.parse(JSON.stringify(DEFAULT_DATA));save();render();toast("Varsayılanlara dönüldü")}}
+function toast(t){const el=document.getElementById("toast");el.textContent=t;el.classList.add("show");clearTimeout(window._tt);window._tt=setTimeout(()=>el.classList.remove("show"),2200)}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function js(s){return String(s??"").replace(/\\/g,"\\\\").replace(/'/g,"\\'")}
+searchInput.addEventListener("input",renderProducts);
+render();renderCart();
+
+document.addEventListener("DOMContentLoaded", function(){
+  const bind=(id,fn)=>{const el=document.getElementById(id);if(el) el.addEventListener("click",fn)};
+  bind("floatingAdminBtn", function(e){ try{openAdmin("general")}catch(err){} });
+  bind("nativeOpenAdmin", function(){ openAdmin("general"); });
+  bind("nativeProducts", function(){ openAdmin("products"); });
+  bind("nativeCategories", function(){ openAdmin("categories"); });
+  bind("nativeMenus", function(){ openAdmin("menus"); });
+  bind("nativeListings", function(){ openAdmin("listings"); });
+});
+
+</script>
+
+<a id="floatingAdminBtn" href="#nativeAdmin" onclick="openAdmin();return true" style="
+position:fixed;right:16px;bottom:18px;z-index:95;border:0;border-radius:999px;
+padding:14px 18px;background:#12b8ff;color:#001522;font-weight:900;
+box-shadow:0 12px 35px rgba(0,0,0,.35);cursor:pointer">
+⚙️ Yönetim Paneli
+</a>
+
+</body>
+</html>
